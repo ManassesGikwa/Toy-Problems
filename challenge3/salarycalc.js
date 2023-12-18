@@ -1,6 +1,6 @@
 function calculateNetSalary(basicSalary, benefits) {
     // Constants for paye rates and deductions
-    const payeeRates = {
+    const payeRates = {
       "until 24,000": 10,
       "24,001 - 40,000": 15,
       "40,001 - 60,000": 20,
@@ -34,13 +34,32 @@ function calculateNetSalary(basicSalary, benefits) {
     // Calculate gross salary
     const grossSalary = basicSalary + benefits;
   
-    // Calculate tax
-    let tax=0
+    // Calculate payee
 
-  
-    // Calculate NHIF Deductions
-    
-  
+    function payeecalc(pay) {
+      if (pay <= 24000) {
+        return console.log(pay * 0.1);
+      } else if (pay > 24000 && pay <= 32333) {
+        return console.log(pay * 0.25);
+      } else if (pay > 32333 && pay <= 500000) {
+        return console.log(pay * 0.3);
+      } else if (pay > 500000 && pay <= 800000) {
+        return console.log(pay * 0.325);
+      } else if (pay >800000) {
+        return console.log(pay * 0.35);
+      } else {
+        return
+      }
+    } 
+    // function to calculate nssf deductions
+    function rates(band) {
+      if (band <= 6000) {
+        return (band * 0.06);
+      }
+      if (band >= 6001 && band <= 18000) {
+        return (band * 0.06);
+      }
+    }
     //  net salary calculation
     const netSalary = grossSalary - payee - nhifDeductions - nssfDeduction;
   
