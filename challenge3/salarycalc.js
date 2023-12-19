@@ -1,5 +1,9 @@
-function calculateNetSalary(basicSalary, benefits) {
-    // Constants for paye rates and deductions
+const grossIncome = 0
+let payee =0
+const nhifDeductions=0
+const nssfDeduction=0
+  
+  // paye rates
     const payeRates = {
       "until 24,000": 10,
       "24,001 - 40,000": 15,
@@ -7,7 +11,7 @@ function calculateNetSalary(basicSalary, benefits) {
       "60,001 - 80,000": 25,
       "Above 80,000": 30
     };
-
+      // nhif rates
     const nhifRates = {
       "until 5,999": 150,
       "6,000 - 7,999": 300,
@@ -31,44 +35,98 @@ function calculateNetSalary(basicSalary, benefits) {
     };
   
   
-    // Calculate gross salary
-    const grossSalary = basicSalary + benefits;
-  
     // Calculate payee
 
-    function payeecalc(pay) {
-      if (pay <= 24000) {
-        return console.log(pay * 0.1);
-      } else if (pay > 24000 && pay <= 32333) {
-        return console.log(pay * 0.25);
-      } else if (pay > 32333 && pay <= 500000) {
-        return console.log(pay * 0.3);
-      } else if (pay > 500000 && pay <= 800000) {
-        return console.log(pay * 0.325);
-      } else if (pay >800000) {
-        return console.log(pay * 0.35);
+    function payeecalc(grossIncome) {
+      if (grossIncome <= 24000) {
+        return payee= (grossIncome * 0.1);
+      } else if (grossIncome > 24000 && grossIncome <= 32333) {
+        return payee=(grossIncome * 0.25);
+      } else if ( grossIncome > 32333 && grossIncome <= 500000) {
+        return payee= (grossIncome * 0.3);
+      } else if (grossIncome > 500000 && grossIncome <= 800000) {
+        return payee = (grossIncome * 0.325);
+      } else if (grossIncome >800000) {
+        return payee = (grossIncome * 0.35);
       } else {
         return
       }
     } 
     // function to calculate nssf deductions
-    function rates(band) {
-      if (band <= 6000) {
-        return (band * 0.06);
+    function nssfrates(grossIncome) {
+        return (grossIncome * 0.06);
       }
-      if (band >= 6001 && band <= 18000) {
-        return (band * 0.06);
+    
+    //nhif calculation
+    function calculatenhif(grossIncome) {
+      let deduction = 0;
+        if (grossIncome <= 5999) {
+          deduction = 150;
+        } 
+        else if (grossIncome >= 6000 && grossIncome <= 7999) {
+          deduction = 300;
+        } 
+        else if (grossIncome >= 8000 && grossIncome <= 11999) {
+          deduction = 400;
+        } 
+        else if (grossIncome >= 12000 && grossIncome <= 14999) {
+          deduction = 500;
+        } 
+        else if (grossIncome >= 15000 && grossIncome <= 19999) {
+          deduction = 600;
+        } 
+        else if (grossIncome >= 20000 && grossIncome <= 24999) {
+          deduction = 750;
+        } 
+        else if (grossIncome >= 25000 && grossIncome <= 29999) {
+          deduction = 850;
+        } 
+        else if (grossIncome>= 30000 && grossIncome <= 34999) {
+          deduction = 900;
+        } 
+        else if (grossIncome >= 35000 && grossIncome <= 39999) {
+          deduction = 950;
+        } 
+        else if (grossIncome >= 40000 && grossIncome <= 44999) {
+          deduction = 1000;
+        } 
+        else if (grossIncome >= 45000 && grossIncome <= 49999) {
+          deduction = 1100;
+        } 
+        else if (grossIncome >= 50000 && grossIncome <= 59999) {
+          deduction = 1200;
+        } 
+        else if (grossIncome >= 60000 && grossIncome <= 69999) {
+          deduction = 1300;
+        } 
+        else if (grossIncome >= 70000 && grossIncome <= 79999) {
+          deduction = 1400;
+        } 
+        else if (grossIncome >= 80000 && grossIncome <= 89999) {
+          deduction = 1500;
+        } 
+        else if (grossIncome >= 90000 && grossIncome <= 99999) {
+          deduction = 1600;
+        } 
+        else {
+          deduction = 1700;
       }
+      return deduction;
     }
+
     //  net salary calculation
-    const netSalary = grossSalary - payee - nhifDeductions - nssfDeduction;
+    function netSalary(grossIncome)
+    {
+     const payee = payeecalc(grossIncome);
+     const nhifDeductions= calculatenhif(grossIncome);
+     const nssfDeduction= nssfrates(grossIncome);
+
+      const netSalary = grossIncome -( payee + nhifDeductions + nssfDeduction); 
+
+      return netSalary;
+    }
   
-    // Return various calculations
-    return {
-      payee,
-      nhifDeductions,
-      nssfDeduction,
-      grossSalary,
-      netSalary
-    };
-}
+  
+    //testing 
+
+    console.log("Your net Salary is ",netSalary(60000))
